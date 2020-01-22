@@ -18,8 +18,8 @@ from django.urls import path
 from wypozyczalnia_app import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('addbook/', views.addbook),
+    path('admin', admin.site.urls),
+    path('addbook', views.addbook),
     path('show', views.showbook),
     path('edit/<int:id>', views.editbook),
     path('update/<int:id>', views.updatebook),
