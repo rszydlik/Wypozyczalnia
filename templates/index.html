@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Index</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block content %}
 <form method="POST" class="post-form" action="/addbook">
         {% csrf_token %}
 <br>
@@ -48,5 +41,4 @@
   </div>
     </div>
 </form>
-</body>
-</html>
+{% endblock %}
