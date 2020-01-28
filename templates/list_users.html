@@ -1,0 +1,7 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block content %}
+    {% for user in user_list %}
+        <div>{{ user.username }} - {{ user.lastname }}</div>
+{% endfor %}
+{% endblock %}

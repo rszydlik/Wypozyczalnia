@@ -10,6 +10,24 @@
 </head>
 <body>
 <container>
+    <div class="header">
+        <div class="row">
+            {% if user.is_authenticated %}
+                <div class="col">
+                <p> Witaj {{ user }}</p>
+                </div>
+                <div class="col-2 ml-auto">
+                <a href={% url 'logout' %}> Log out!</a>
+                </div>
+            {% else %}
+                <div class="col-2 ml-auto">
+                <a href={% url 'login' %}>  Log in!</a>
+                </div>
+            {% endif %}
+        </div>
+        <h1>Wypożyczalnia</h1>
+    <br/>
+    </div>
     <div class="row">
         <div class="col-8">
             {% block content %}

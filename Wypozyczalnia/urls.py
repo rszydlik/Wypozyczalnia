@@ -16,12 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from wypozyczalnia_app import views
+from wypozyczalnia_app.views import LogIn, LogOut, AddUser, ListUsers
 
 urlpatterns = [
     path('admin', admin.site.urls),
     path('addbook', views.addbook),
     path('show', views.showbook),
+    path('', views.showbook, name='home'),
     path('edit/<int:id>', views.editbook),
     path('update/<int:id>', views.updatebook),
     path('delete/<int:id>', views.destroybook),
+    path('login/', LogIn.as_view(), name='login'),
+    path('logout/', LogOut.as_view(), name='logout'),
+    path('add_user/', AddUser.as_view(), name='add-user'),
+    path('list_users/', ListUsers.as_view(), name='list-users'),
 ]
