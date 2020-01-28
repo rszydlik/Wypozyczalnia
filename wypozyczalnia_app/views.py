@@ -25,13 +25,16 @@ def addbook(request):
         form = BookForm()
     return render(request, 'index.html', {'form': form})
 
+
 def showbook(request):
     books = Book.objects.all()
     return render(request, 'show.html', {'books': books})
 
+
 def editbook(request, bookid):
     book = Book.objects.get(id=bookid)
     return render(request, 'edit.html', {'book': book})
+
 
 def updatebook(request, bookid):
     book = Book.objects.get(id=bookid)
@@ -40,6 +43,7 @@ def updatebook(request, bookid):
         form.save()
         return redirect("/show")
     return render(request, 'edit.html', {'book': book})
+
 
 def destroybook(request, bookid):
     book = Book.objects.get(id=bookid)
