@@ -30,8 +30,12 @@
     </div>
     <div class="row">
         <div class="col-8">
-            {% block content %}
-            {% endblock %}
+            {% if user.is_authenticated %}
+                {% block content %}
+                {% endblock %}
+            {% else %}
+                Please <a href={% url 'login' %}>  Log in!</a> or <a href={% url 'add-user' %}>  Register!</a>
+            {% endif %}
         </div>
     </div>
 </container>

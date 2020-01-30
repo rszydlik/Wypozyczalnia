@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMix
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import FormView
+from django.views.generic import FormView, CreateView
 
 from wypozyczalnia_app.forms import BookForm, AddUserForm, ChangePasswordForm, Login
 from wypozyczalnia_app.models import Book
@@ -12,18 +12,27 @@ from django.contrib.auth.models import User
 
 # Create your views here.
 
-def addbook(request):
-    if request.method == "POST":
-        form = BookForm(request.POST)
-        if form.is_valid():
-            try:
-                form.save()
-                return redirect('/show')
-            except:
-                pass
-    else:
-        form = BookForm()
-    return render(request, 'index.html', {'form': form})
+class AddBookView(CreateView, LoginRequiredMixin, PermissionRequiredMixin):
+    model = Book
+    form_class = BookForm
+    template_name = 'index.html'
+    success_url = reverse_lazy('home')
+
+# def addbook(request):
+#     tempid = Book.objects.values("id").count()+1
+#     if request.method == "POST":
+#
+#         form = BookForm(request.POST)
+#         if form.is_valid():
+#             try:
+#                 form.save()
+#                 return redirect('/show')
+#             except:
+#                 pass
+#     else:
+#         form = BookForm()
+#     return render(request, 'index.html', {'form': form,
+#                                           'tempid': tempid})
 
 
 def showbook(request):

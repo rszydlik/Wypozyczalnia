@@ -16,16 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from wypozyczalnia_app import views
-from wypozyczalnia_app.views import LogIn, LogOut, AddUser, ListUsers
+from wypozyczalnia_app.views import LogIn, LogOut, AddUser, ListUsers, AddBookView
 
 urlpatterns = [
     path('admin', admin.site.urls),
-    path('addbook', views.addbook),
+    path('addbook', AddBookView.as_view(), name='addbook'),
     path('show', views.showbook),
     path('', views.showbook, name='home'),
-    path('edit/<int:id>', views.editbook),
-    path('update/<int:id>', views.updatebook),
-    path('delete/<int:id>', views.destroybook),
+    path('edit/<int:bookid>', views.editbook),
+    path('update/<int:bookid>', views.updatebook),
+    path('delete/<int:bookid>', views.destroybook),
     path('login/', LogIn.as_view(), name='login'),
     path('logout/', LogOut.as_view(), name='logout'),
     path('add_user/', AddUser.as_view(), name='add-user'),
