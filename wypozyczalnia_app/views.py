@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMix
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import FormView, CreateView
+from django.views.generic import FormView, CreateView, ListView
 
 from wypozyczalnia_app.forms import BookForm, AddUserForm, ChangePasswordForm, Login
 from wypozyczalnia_app.models import Book
@@ -17,22 +17,6 @@ class AddBookView(CreateView, LoginRequiredMixin, PermissionRequiredMixin):
     form_class = BookForm
     template_name = 'index.html'
     success_url = reverse_lazy('home')
-
-# def addbook(request):
-#     tempid = Book.objects.values("id").count()+1
-#     if request.method == "POST":
-#
-#         form = BookForm(request.POST)
-#         if form.is_valid():
-#             try:
-#                 form.save()
-#                 return redirect('/show')
-#             except:
-#                 pass
-#     else:
-#         form = BookForm()
-#     return render(request, 'index.html', {'form': form,
-#                                           'tempid': tempid})
 
 
 def showbook(request):
@@ -60,11 +44,16 @@ def destroybook(request, bookid):
     return redirect("/show")
 
 
-class ListUsers(View):
+class ListUsers(ListView):
+    model = User
+    template_name = 'user_list.html'
 
-    def get(self, request):
-        user_list = User.objects.all()
-        return render(request, 'list_users.html', {'user_list': user_list})
+
+# class ListUsers(View):
+#
+#     def get(self, request):
+#         user_list = User.objects.all()
+#         return render(request, 'user_list.html', {'user_list': user_list})
 
 
 class LogIn(View):
