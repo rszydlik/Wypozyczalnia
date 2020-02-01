@@ -19,6 +19,10 @@ class AddBookView(CreateView, LoginRequiredMixin, PermissionRequiredMixin):
     success_url = reverse_lazy('home')
 
 
+class BookListView(ListView):
+    model = Book
+    template_name = 'show.html'
+
 def showbook(request):
     books = Book.objects.all()
     return render(request, 'show.html', {'books': books})
@@ -47,13 +51,6 @@ def destroybook(request, bookid):
 class ListUsers(ListView):
     model = User
     template_name = 'user_list.html'
-
-
-# class ListUsers(View):
-#
-#     def get(self, request):
-#         user_list = User.objects.all()
-#         return render(request, 'user_list.html', {'user_list': user_list})
 
 
 class LogIn(View):
