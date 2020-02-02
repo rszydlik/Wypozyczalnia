@@ -19,10 +19,11 @@ from wypozyczalnia_app import views
 from wypozyczalnia_app.views import LogIn, LogOut, AddUser, ListUsers, AddBookView, BookListView
 
 urlpatterns = [
+    # administration
     path('admin', admin.site.urls),
     path('addbook', AddBookView.as_view(), name='addbook'),
-    path('show', BookListView.as_view(), name='listbook'),
-    path('', views.showbook, name='home'),
+    path('show', BookListView.as_view(), name='home'),
+    path('', BookListView.as_view(), name='booklist'),
     path('edit/<int:bookid>', views.editbook),
     path('update/<int:bookid>', views.updatebook),
     path('delete/<int:bookid>', views.destroybook),
@@ -30,4 +31,5 @@ urlpatterns = [
     path('logout/', LogOut.as_view(), name='logout'),
     path('add_user/', AddUser.as_view(), name='add-user'),
     path('list_users/', ListUsers.as_view(), name='list-users'),
+    path('addtolibrary/<int:bookid>', views.addtouser)
 ]

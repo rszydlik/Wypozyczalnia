@@ -6,13 +6,21 @@ from django.views import View
 from django.views.generic import FormView, CreateView, ListView
 
 from wypozyczalnia_app.forms import BookForm, AddUserForm, ChangePasswordForm, Login
-from wypozyczalnia_app.models import Book
+from wypozyczalnia_app.models import Book, Library
 from django.contrib.auth.models import User
 
 
 # Create your views here.
 
-class AddBookView(CreateView, LoginRequiredMixin, PermissionRequiredMixin):
+def addtouser(request, bookid):
+    book = Book.objects.get(id=bookid)
+    relation = Library(bkey=book,
+                       user=request.user)
+    relation.save()
+    return redirect('home')
+
+
+class AddBookView(CreateView):
     model = Book
     form_class = BookForm
     template_name = 'index.html'
@@ -22,6 +30,14 @@ class AddBookView(CreateView, LoginRequiredMixin, PermissionRequiredMixin):
 class BookListView(ListView):
     model = Book
     template_name = 'show.html'
+
+
+class UserBookView(ListView):
+    template_name = 'show.html'
+
+    def get_queryset(self):
+        queryset = Library.objects.all(book__)
+
 
 def showbook(request):
     books = Book.objects.all()

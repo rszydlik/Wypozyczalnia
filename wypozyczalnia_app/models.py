@@ -13,5 +13,5 @@ class Book(models.Model):
 
 
 class Library(models.Model):
-    bkey = models.ForeignKey(Book, on_delete=models.CASCADE)
-    User = models.ForeignKey(User, on_delete=models.CASCADE)
+    bkey = models.ManyToManyField(Book)
+    user = models.ManyToManyField(User)
