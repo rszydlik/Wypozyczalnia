@@ -6,7 +6,7 @@ from django.views import View
 from django.views.generic import FormView, CreateView, ListView
 
 from wypozyczalnia_app.forms import BookForm, AddUserForm, ChangePasswordForm, Login
-from wypozyczalnia_app.models import Book, Library
+from wypozyczalnia_app.models import Book
 from django.contrib.auth.models import User
 
 
@@ -14,9 +14,15 @@ from django.contrib.auth.models import User
 
 def addtouser(request, bookid):
     book = Book.objects.get(id=bookid)
-    relation = Library(bkey=book,
-                       user=request.user)
-    relation.save()
+    book.owners.add(request.user)
+    book.save()
+    return redirect('home')
+
+
+def removefromuser(request, bookid):
+    book = Book.objects.get(id=bookid)
+    book.owners.remove(request.user)
+    book.save()
     return redirect('home')
 
 
@@ -33,10 +39,12 @@ class BookListView(ListView):
 
 
 class UserBookView(ListView):
-    template_name = 'show.html'
+    template_name = 'show_library.html'
 
     def get_queryset(self):
-        queryset = Library.objects.all(book__)
+        user = self.request.user
+        queryset = Book.objects.filter(owners=user)
+        return queryset
 
 
 def showbook(request):

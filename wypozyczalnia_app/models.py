@@ -7,11 +7,11 @@ class Book(models.Model):
     btitle = models.CharField(max_length=20)
     bauthor = models.CharField(max_length=20)
     bdescription = models.TextField(max_length=100)
+    owners = models.ManyToManyField(User)
+
+    def __str__(self):
+        return self.btitle
 
     class Meta:
         db_table = "books"
 
-
-class Library(models.Model):
-    bkey = models.ManyToManyField(Book)
-    user = models.ManyToManyField(User)
