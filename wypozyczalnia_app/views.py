@@ -1,12 +1,12 @@
 from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import FormView, CreateView, ListView
+from django.views.generic import FormView, CreateView, ListView, DetailView, UpdateView, DeleteView
 
 from wypozyczalnia_app.forms import BookForm, AddUserForm, ChangePasswordForm, Login
-from wypozyczalnia_app.models import Book
+from wypozyczalnia_app.models import Book, Friend
 from django.contrib.auth.models import User
 
 
@@ -125,3 +125,29 @@ def removefromuser(request, bookid):
     book.owners.remove(request.user)
     book.save()
     return redirect('home')
+
+
+# friends
+
+class FriendsList(ListView):
+    model = Friend
+
+
+class FriendDetail(DetailView):
+    model = Friend
+
+
+class FriendCreate(CreateView):
+    model = Friend
+
+    def form_valid(self, form):
+        form.instance.relates = self.request.user
+        return super(FriendCreate, self).form_valid(form)
+
+
+class FriendUpdate(UpdateView):
+    model = Friend
+
+
+class FriendDelete(DeleteView):
+    model = Friend

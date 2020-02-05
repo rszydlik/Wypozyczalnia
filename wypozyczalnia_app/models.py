@@ -23,6 +23,8 @@ class Library(models.Model):
 
 class Friend(models.Model):
     name = models.CharField(max_length=20, unique=True)
+    email = models.EmailField
+    phone = models.CharField(max_length=16)
     relates = models.ManyToManyField(User, through='Network')
 
     def __str__(self):
