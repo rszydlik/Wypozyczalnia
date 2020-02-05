@@ -16,21 +16,25 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from wypozyczalnia_app import views
-from wypozyczalnia_app.views import LogIn, LogOut, AddUser, ListUsers, AddBookView, BookListView, UserBookView
+from wypozyczalnia_app.views import LogIn, LogOut, AddUser, ListUsers, AddBookView, BookListView, UserBookView, \
+    ChangePassword
 
 urlpatterns = [
     # administration
     path('admin', admin.site.urls),
+    # books
     path('addbook', AddBookView.as_view(), name='addbook'),
-    path('show', UserBookView.as_view(), name='home'),
     path('', BookListView.as_view(), name='booklist'),
-    path('edit/<int:bookid>', views.editbook),
     path('update/<int:bookid>', views.updatebook),
     path('delete/<int:bookid>', views.destroybook),
+    # users
     path('login/', LogIn.as_view(), name='login'),
     path('logout/', LogOut.as_view(), name='logout'),
     path('add_user/', AddUser.as_view(), name='add-user'),
     path('list_users/', ListUsers.as_view(), name='list-users'),
+    path('changepassword/', ChangePassword.as_view(), name='change-password'),
+    # user's library
+    path('show', UserBookView.as_view(), name='home'),
     path('addtolibrary/<int:bookid>', views.addtouser),
     path('removefromlibrary/<int:bookid>', views.removefromuser),
 ]

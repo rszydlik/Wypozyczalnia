@@ -12,19 +12,7 @@ from django.contrib.auth.models import User
 
 # Create your views here.
 
-def addtouser(request, bookid):
-    book = Book.objects.get(id=bookid)
-    book.owners.add(request.user)
-    book.save()
-    return redirect('home')
-
-
-def removefromuser(request, bookid):
-    book = Book.objects.get(id=bookid)
-    book.owners.remove(request.user)
-    book.save()
-    return redirect('home')
-
+# books
 
 class AddBookView(CreateView):
     model = Book
@@ -36,25 +24,6 @@ class AddBookView(CreateView):
 class BookListView(ListView):
     model = Book
     template_name = 'show.html'
-
-
-class UserBookView(ListView):
-    template_name = 'show_library.html'
-
-    def get_queryset(self):
-        user = self.request.user
-        queryset = Book.objects.filter(owners=user)
-        return queryset
-
-
-def showbook(request):
-    books = Book.objects.all()
-    return render(request, 'show.html', {'books': books})
-
-
-def editbook(request, bookid):
-    book = Book.objects.get(id=bookid)
-    return render(request, 'edit.html', {'book': book})
 
 
 def updatebook(request, bookid):
@@ -72,10 +41,7 @@ def destroybook(request, bookid):
     return redirect("/show")
 
 
-class ListUsers(ListView):
-    model = User
-    template_name = 'user_list.html'
-
+# users
 
 class LogIn(View):
 
@@ -118,14 +84,44 @@ class AddUser(FormView):
         return super(AddUser, self).form_valid(form)
 
 
+class ListUsers(ListView):
+    model = User
+    template_name = 'user_list.html'
+
+
 class ChangePassword(PermissionRequiredMixin, LoginRequiredMixin, FormView):
     permission_required = 'users.change_user'
     template_name = 'add_user.html'
     form_class = ChangePasswordForm
-    success_url = reverse_lazy('list-users')
+    success_url = reverse_lazy('home')
 
     def form_valid(self, form):
         user = self.request.user.id
         user.set_password(form.cleaned_data["password"])
         user.save()
         return super(ChangePassword, self).form_valid(form)
+
+
+# user's library
+
+class UserBookView(ListView):
+    template_name = 'show_library.html'
+
+    def get_queryset(self):
+        user = self.request.user
+        queryset = Book.objects.filter(owners=user)
+        return queryset
+
+
+def addtouser(request, bookid):
+    book = Book.objects.get(id=bookid)
+    book.owners.add(request.user)
+    book.save()
+    return redirect('home')
+
+
+def removefromuser(request, bookid):
+    book = Book.objects.get(id=bookid)
+    book.owners.remove(request.user)
+    book.save()
+    return redirect('home')
