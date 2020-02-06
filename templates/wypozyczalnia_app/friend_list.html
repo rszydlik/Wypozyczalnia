@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Friends</h1>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Email</th>
+<th>Phone</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody>
+{% for contact in object_list %}
+<tr>
+<td>{{ contact.name }}</td>
+<td>{{ contact.email }}</td>
+<td>{{ contact.phone }}</td>
+<td>
+<a  href="{% url "friend-detail"  contact.id  %}">details</a>
+<a  href="{% url "friend-update"  contact.id  %}">edit</a>
+<a  href="{% url "friend-delete"  contact.id  %}">delete</a>
+</td>
+</tr>
+
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}

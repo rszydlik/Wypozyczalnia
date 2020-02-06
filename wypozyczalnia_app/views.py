@@ -105,7 +105,7 @@ class ChangePassword(PermissionRequiredMixin, LoginRequiredMixin, FormView):
 # user's library
 
 class UserBookView(ListView):
-    template_name = 'show_library.html'
+    template_name = 'wypozyczalnia_app/show_library.html'
 
     def get_queryset(self):
         user = self.request.user

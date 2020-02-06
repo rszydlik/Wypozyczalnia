@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from wypozyczalnia_app import views
 from wypozyczalnia_app.views import LogIn, LogOut, AddUser, ListUsers, AddBookView, BookListView, UserBookView, \
-    ChangePassword
+    ChangePassword, FriendsList, FriendDetail, FriendCreate, FriendUpdate, FriendDelete
 
 urlpatterns = [
     # administration
@@ -37,4 +37,10 @@ urlpatterns = [
     path('show', UserBookView.as_view(), name='home'),
     path('addtolibrary/<int:bookid>', views.addtouser),
     path('removefromlibrary/<int:bookid>', views.removefromuser),
+    # friendlist
+    path('friends/list/', FriendsList.as_view(), name='friend-list'),
+    path('friends/detail/', FriendDetail.as_view(), name='friend-detail'),
+    path('friends/create/', FriendCreate.as_view(), name='friend-detail'),
+    path('friends/update/', FriendUpdate.as_view(), name='friend-update'),
+    path('friends/delete', FriendDelete.as_view(), name='friend-delete')
 ]
