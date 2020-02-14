@@ -20,12 +20,18 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ''
-
+# SECRET_KEY = ''
+SECRET_KEY = os.environ.get('SECRET_KEY', '')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.environ.get('DEBUG', '') == 'True'
+#DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'wypozyczalnia-test.appspot.com',
+    # must add the app engine (project-id) domain here
+    '127.0.0.1',
+    # for local testing
+]
 
 
 # Application definition
@@ -51,6 +57,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'Wypozyczalnia.urls'
+WSGI_APPLICATION = 'Wypozyczalnia.wsgi.application'
+
 
 TEMPLATES = [
     {
