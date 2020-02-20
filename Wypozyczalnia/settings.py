@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -24,15 +23,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('SECRET_KEY', '')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', '') == 'True'
-#DEBUG = False
+# DEBUG = False
 
 ALLOWED_HOSTS = [
     'wypozyczalnia-test.appspot.com',
     # must add the app engine (project-id) domain here
+    '.pythonanywhere.com',
     '127.0.0.1',
     # for local testing
 ]
-
 
 # Application definition
 
@@ -59,7 +58,6 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'Wypozyczalnia.urls'
 WSGI_APPLICATION = 'Wypozyczalnia.wsgi.application'
 
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -77,16 +75,19 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'Wypozyczalnia.wsgi.application'
-
-
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {}
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'HOST': os.environ.get('DB_HOST', ''),
+        'PORT': os.environ.get('DB_PORT', ''),
+        'NAME': os.environ.get('DB_NAME', ''),
+        'USER': os.environ.get('DB_USER', ''),
+        'PASSWORD': os.environ.get('DB_PASSWORD', '')
+    }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -106,7 +107,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -120,11 +120,13 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = os.environ.get('STATIC_URL', '/static/')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# print(os.environ.get('DB_HOST'))
 
 try:
     from .local_settings import *

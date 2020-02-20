@@ -78,7 +78,6 @@ class AddUser(FormView):
     template_name = 'add_user.html'
     form_class = AddUserForm
     success_url = reverse_lazy('list-users')
-
     def form_valid(self, form):
         form.save()
         return super(AddUser, self).form_valid(form)
