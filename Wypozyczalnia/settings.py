@@ -126,7 +126,11 @@ USE_TZ = True
 STATIC_URL = os.environ.get('STATIC_URL', '/static/')
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-# print(os.environ.get('DB_HOST'))
+# Redirect to home URL after login (Default redirects to /accounts/profile/)
+LOGIN_REDIRECT_URL = '/'
+
+# Gdzie przekierowuje gdy trzeba byc zalogowanym
+LOGIN_URL = 'login'
 
 try:
     from .local_settings import *
