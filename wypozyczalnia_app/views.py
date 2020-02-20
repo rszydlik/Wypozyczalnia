@@ -4,7 +4,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import FormView, CreateView, ListView, DetailView, UpdateView, DeleteView
+import requests
 
+from Wypozyczalnia.local_settings import geoapi
 from wypozyczalnia_app.forms import BookForm, AddUserForm, ChangePasswordForm, Login
 from wypozyczalnia_app.models import Book, Friend
 from django.contrib.auth.models import User
@@ -47,7 +49,16 @@ class LogIn(View):
 
     def get(self, request):
         form = Login()
-        return render(request, 'login.html', {'form': form})
+        ip_address = request.META.get('HTTP_X_FORWARDED_FOR', '37.7.70.21')
+        print('http://api.ipstack.com/'+ip_address+'?access_key='+geoapi+'&format=1')
+        response = requests.get('http://api.ipstack.com/'+ip_address+'?access_key='+geoapi+'&format=1')
+        geodata = response.json()
+        return render(request,
+                      'login.html',
+                      {'form': form,
+                       'ip': geodata['ip'],
+                       'country': geodata['country_name']
+                       })
 
     def post(self, request):
         form = Login(request.POST)
