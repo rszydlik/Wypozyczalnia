@@ -29,6 +29,8 @@ class AllThingsView(View):
         }
 
         return render(request, 'home.html', context=context)
+
+
 # books
 
 class AddBookView(CreateView):
@@ -65,8 +67,8 @@ class LogIn(View):
     def get(self, request):
         form = Login()
         ip_address = request.META.get('HTTP_X_FORWARDED_FOR', '37.7.70.21')
-        print('http://api.ipstack.com/'+ip_address+'?access_key='+geoapi+'&format=1')
-        response = requests.get('http://api.ipstack.com/'+ip_address+'?access_key='+geoapi+'&format=1')
+        print('http://api.ipstack.com/' + ip_address + '?access_key=' + geoapi + '&format=1')
+        response = requests.get('http://api.ipstack.com/' + ip_address + '?access_key=' + geoapi + '&format=1')
         geodata = response.json()
         return render(request,
                       'login.html',
@@ -104,6 +106,7 @@ class AddUser(FormView):
     template_name = 'add_user.html'
     form_class = AddUserForm
     success_url = reverse_lazy('list-users')
+
     def form_valid(self, form):
         form.save()
         return super(AddUser, self).form_valid(form)
