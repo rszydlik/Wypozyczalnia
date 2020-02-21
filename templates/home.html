@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Wypożyczalnia</h1>
+  <p>Witaj w Wypożyczalni, serwisie ułatwiającym kontrolowanie jaką książkę komu się pozyczyło!</p>
+  <h2>Obecna zawartość</h2>
+  <p>Wypożyczalnia liczy sobie obecnie:</p>
+  <ul>
+    <li><strong>Tytuły:</strong> {{ num_books }}</li>
+    <li><strong>Użytkownicy:</strong> {{ num_users }}</li>
+    <li><strong>Posiadane przez nich książki:</strong> {{ num_libraries }}</li>
+    <li><strong>Osoby którym pozyczają:</strong> {{ num_friends }}</li>
+  </ul>
+{% endblock %}

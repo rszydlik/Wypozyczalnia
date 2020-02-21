@@ -8,12 +8,27 @@ import requests
 
 from Wypozyczalnia.local_settings import geoapi
 from wypozyczalnia_app.forms import BookForm, AddUserForm, ChangePasswordForm, Login
-from wypozyczalnia_app.models import Book, Friend
+from wypozyczalnia_app.models import Book, Friend, Library
 from django.contrib.auth.models import User
 
 
 # Create your views here.
+class AllThingsView(View):
 
+    def get(self, request):
+        num_books = Book.objects.all().count()
+        num_users = User.objects.all().count()
+        num_libraries = Library.objects.all().count()
+        num_friends = Friend.objects.all().count()
+
+        context = {
+            'num_books': num_books,
+            'num_users': num_users,
+            'num_libraries': num_libraries,
+            'num_friends': num_friends,
+        }
+
+        return render(request, 'home.html', context=context)
 # books
 
 class AddBookView(CreateView):
