@@ -33,8 +33,11 @@
                 {% block sidebar %}
                 <ul class="sidebar-nav">
                 <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="">All books</a></li>
+                <li><a href="{% url 'booklist' %}">All books</a></li>
                 <li><a href="">All authors</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'friend-list' %}">Friends list</a> </li>
+                {%  endif %}
                 </ul>
                 {% endblock %}
         </div>

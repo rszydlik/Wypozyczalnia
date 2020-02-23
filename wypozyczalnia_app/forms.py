@@ -1,13 +1,18 @@
 from django import forms
 from django.contrib.auth.models import User
 
-from wypozyczalnia_app.models import Book
+from wypozyczalnia_app.models import Book, Friend
 
 
 class BookForm(forms.ModelForm):
     class Meta:
         model = Book
         fields = ['btitle', 'bauthor', 'bdescription']
+
+class FriendForm(forms.ModelForm):
+    class Meta:
+        model = Friend
+        fields = ['name', 'email', 'phone', 'relates']
 
 
 class Login(forms.Form):

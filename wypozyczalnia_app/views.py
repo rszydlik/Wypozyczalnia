@@ -7,7 +7,7 @@ from django.views.generic import FormView, CreateView, ListView, DetailView, Upd
 import requests
 
 from Wypozyczalnia.local_settings import geoapi
-from wypozyczalnia_app.forms import BookForm, AddUserForm, ChangePasswordForm, Login
+from wypozyczalnia_app.forms import BookForm, AddUserForm, ChangePasswordForm, Login, FriendForm
 from wypozyczalnia_app.models import Book, Friend, Library
 from django.contrib.auth.models import User
 
@@ -71,7 +71,7 @@ class LogIn(View):
         response = requests.get('http://api.ipstack.com/' + ip_address + '?access_key=' + geoapi + '&format=1')
         geodata = response.json()
         return render(request,
-                      'login.html',
+                      'registration/login.html',
                       {'form': form,
                        'ip': geodata['ip'],
                        'country': geodata['country_name']
@@ -159,7 +159,12 @@ def removefromuser(request, bookid):
 
 class FriendsList(ListView):
     model = Friend
+    template_name = 'wypozyczalnia_app/friend_list.html'
 
+    def get_queryset(self):
+        user = self.request.user
+        queryset = Friend.objects.filter(relates=user)
+        return queryset
 
 class FriendDetail(DetailView):
     model = Friend
@@ -167,9 +172,12 @@ class FriendDetail(DetailView):
 
 class FriendCreate(CreateView):
     model = Friend
+    form_class = FriendForm
+    template_name = 'friendform.html'
+    success_url = reverse_lazy('home')
 
     def form_valid(self, form):
-        form.instance.relates = self.request.user
+        form.relates = self.request.user
         return super(FriendCreate, self).form_valid(form)
 
 
