@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Lend Form</h2>
+  <form method="post" novalidate>
+    {% csrf_token %}
+    <table>
+      {{ form.as_table }}
+    </table>
+    <button type="submit">Lend</button>
+    <a href="{% url 'show' %}">Nevermind</a>
+  </form>
+{% endblock %}

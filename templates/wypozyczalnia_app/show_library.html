@@ -11,21 +11,52 @@
         </tr>
     </thead>
     <tbody>
-{% for book in object_list %}
+{% for library in object_list %}
+    {% if library.borrower == Null %}
     <tr>
-        <td>{{ book.id }}</td>
-        <td>{{ book.btitle }}</td>
-        <td>{{ book.bauthor }}</td>
-        <td>{{ book.bdescription }}</td>
+        <td>{{ library.book.id }}</td>
+        <td>{{ library.book.btitle }}</td>
+        <td>{{ library.book.bauthor }}</td>
+        <td>{{ library.book.bdescription }}</td>
         <td><div class="row">
-            <div class="col-6"><a href="/catalog/removefromlibrary/{{ book.id }}">Remove from library</a></div>
+            <div class="col-6"><a href="/catalog/lend/{{ library.id }}">Lend</a></div>
+            <div class="col-6"><a href="/catalog/removefromlibrary/{{ library.book.id }}">Remove from library</a></div>
         </div>
         </td>
     </tr>
+    {% endif %}
 {% endfor %}
     </tbody>
 </table>
 <br>
+<table class="table table-striped table-bordered table-sm">
+    <thead class="thead-dark">
+        <tr>
+            <th style="width: 7%">Book ID</th>
+            <th style="width: 20%">Book Title</th>
+            <th style="width: 20%">Author</th>
+            <th style="width: 40%">Description</th>
+            <th style="width: 13%">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+{% for library in object_list %}
+    {% if library.borrower != Null %}
+    <tr>
+        <td>{{ library.book.id }}</td>
+        <td>{{ library.book.btitle }}</td>
+        <td>{{ library.book.bauthor }}</td>
+        <td>{{ library.book.bdescription }}</td>
+        <td><div class="row">
+            <div class="col-6"><a href="/catalog/regain/{{ library.id }}">Odbierz</a></div>
+            <div class="col-6"><a href="/catalog/removefromlibrary/{{ library.book.id }}">Remove from library</a></div>
+        </div>
+        </td>
+    </tr>
+    {% endif %}
+{% endfor %}
+    </tbody>
+</table>
 <br>
 <div style="text-align: center;"><a href="/catalog/books" class="btn btn-primary">Browse books available</a></div>
 {% endblock %}

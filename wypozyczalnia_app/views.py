@@ -7,7 +7,7 @@ from django.views.generic import FormView, CreateView, ListView, DetailView, Upd
 import requests
 
 from Wypozyczalnia.local_settings import geoapi
-from wypozyczalnia_app.forms import BookForm, AddUserForm, ChangePasswordForm, Login, FriendForm
+from wypozyczalnia_app.forms import BookForm, AddUserForm, ChangePasswordForm, Login, FriendForm, LendForm
 from wypozyczalnia_app.models import Book, Friend, Library
 from django.contrib.auth.models import User
 
@@ -102,7 +102,7 @@ class UserBookView(ListView):
 
     def get_queryset(self):
         user = self.request.user
-        queryset = Book.objects.filter(owners=user)
+        queryset = Library.objects.filter(owner=user)
         return queryset
 
 
@@ -118,6 +118,26 @@ def removefromuser(request, bookid):
     book.owners.remove(request.user)
     book.save()
     return redirect('show')
+
+
+class Lend(UpdateView):
+    model = Library
+    form_class = LendForm
+    template_name = "wypozyczalnia_app/lend.html"
+    success_url = reverse_lazy('show')
+
+    def get_form_kwargs(self):
+        kwargs = super(Lend, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
+
+
+def regain(request, libraryid):
+    library = Library.objects.get(id=libraryid)
+    library.borrower = None
+    library.save()
+    return redirect('show')
+
 
 
 # friends

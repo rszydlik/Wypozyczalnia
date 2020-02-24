@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 
-from wypozyczalnia_app.models import Book, Friend
+from wypozyczalnia_app.models import Book, Friend, Library
 
 
 class BookForm(forms.ModelForm):
@@ -9,10 +9,24 @@ class BookForm(forms.ModelForm):
         model = Book
         fields = ['btitle', 'bauthor', 'bdescription']
 
+
 class FriendForm(forms.ModelForm):
     class Meta:
         model = Friend
         fields = ['name', 'email', 'phone']
+
+
+class LendForm(forms.ModelForm):
+    class Meta:
+        model = Library
+        fields = ('borrower',)
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user')
+        userid = self.user.pk
+        super(LendForm, self).__init__(*args, **kwargs)
+        self.fields['borrower'].queryset = self.fields['borrower'].queryset.filter(relates=userid)
+
 
 class Login(forms.Form):
     login_form = forms.CharField(label='Login', max_length=64)
