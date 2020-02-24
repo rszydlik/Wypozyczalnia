@@ -1,7 +1,6 @@
 from django.urls import path, include
 from wypozyczalnia_app import views
-from wypozyczalnia_app.views import AddUser, ListUsers, AddBookView, BookListView, UserBookView, \
-    ChangePassword, FriendsList, FriendDetail, FriendCreate, FriendUpdate, FriendDelete, AllThingsView
+from wypozyczalnia_app.views import AddUser, ListUsers, AddBookView, BookListView, UserBookView, FriendsList, FriendDetail, FriendCreate, FriendUpdate, FriendDelete, AllThingsView
 
 urlpatterns = [
     path('', AllThingsView.as_view(), name='home'),
@@ -21,8 +20,8 @@ urlpatterns = [
     path('removefromlibrary/<int:bookid>', views.removefromuser),
     # friendlist
     path('friends/list/', FriendsList.as_view(), name='friend-list'),
-    path('friends/detail/', FriendDetail.as_view(), name='friend-detail'),
+    path('friends/detail/<int:pk>', FriendDetail.as_view(), name='friend-detail'),
     path('friends/create/', FriendCreate.as_view(), name='friend-create'),
-    path('friends/update/', FriendUpdate.as_view(), name='friend-update'),
-    path('friends/delete', FriendDelete.as_view(), name='friend-delete')
+    path('friends/update/<int:friendid>', FriendUpdate.as_view(), name='friend-update'),
+    path('friends/delete/<int:friendid>', FriendDelete.as_view(), name='friend-delete')
 ]

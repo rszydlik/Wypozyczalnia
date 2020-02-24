@@ -12,7 +12,7 @@ class BookForm(forms.ModelForm):
 class FriendForm(forms.ModelForm):
     class Meta:
         model = Friend
-        fields = ['name', 'email', 'phone', 'relates']
+        fields = ['name', 'email', 'phone']
 
 class Login(forms.Form):
     login_form = forms.CharField(label='Login', max_length=64)

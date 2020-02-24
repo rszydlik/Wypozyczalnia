@@ -25,13 +25,13 @@ class AllThingsView(View):
         response = requests.get('http://api.ipstack.com/' + ip_address + '?access_key=' + geoapi + '&format=1')
         geodata = response.json()
         context = {
-                    'num_books': num_books,
-                    'num_users': num_users,
-                    'num_libraries': num_libraries,
-                    'num_friends': num_friends,
-                    'ip': geodata['ip'],
-                    'country': geodata['country_name']
-                    }
+            'num_books': num_books,
+            'num_users': num_users,
+            'num_libraries': num_libraries,
+            'num_friends': num_friends,
+            'ip': geodata['ip'],
+            'country': geodata['country_name']
+        }
 
         return render(request, 'home.html', context=context)
 
@@ -110,14 +110,14 @@ def addtouser(request, bookid):
     book = Book.objects.get(id=bookid)
     book.owners.add(request.user)
     book.save()
-    return redirect('home')
+    return redirect('show')
 
 
 def removefromuser(request, bookid):
     book = Book.objects.get(id=bookid)
     book.owners.remove(request.user)
     book.save()
-    return redirect('home')
+    return redirect('show')
 
 
 # friends
@@ -131,6 +131,7 @@ class FriendsList(ListView):
         queryset = Friend.objects.filter(relates=user)
         return queryset
 
+
 class FriendDetail(DetailView):
     model = Friend
 
@@ -139,10 +140,11 @@ class FriendCreate(CreateView):
     model = Friend
     form_class = FriendForm
     template_name = 'friendform.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('friend-list')
 
     def form_valid(self, form):
-        form.relates = self.request.user
+        friend = form.save(commit=False)
+        friend.relates = self.request.user
         return super(FriendCreate, self).form_valid(form)
 
 

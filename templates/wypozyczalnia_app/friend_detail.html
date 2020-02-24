@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Użytkownik: {{ friend.user.name }}</h1>
+
+  <p><strong>Imię:</strong> <a href="">{{ friend.name }}</a></p> <!-- author detail link not yet defined -->
+  <p><strong>E-mail:</strong> {{ friend.email }}</p>
+  <p><strong>Tel:</strong> {{ book.phone }}</p>
+
+{% endblock %}
