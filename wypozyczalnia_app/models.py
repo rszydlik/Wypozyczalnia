@@ -25,7 +25,7 @@ class Friend(models.Model):
     name = models.CharField(max_length=20, unique=True)
     email = models.EmailField(null=True)
     phone = models.CharField(max_length=16, null=True)
-    relates = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    relates = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
 
     def __str__(self):
         return self.name
