@@ -25,12 +25,7 @@ class Friend(models.Model):
     name = models.CharField(max_length=20, unique=True)
     email = models.EmailField(null=True)
     phone = models.CharField(max_length=16, null=True)
-    relates = models.ManyToManyField(User, through='Network')
+    relates = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.name
-
-
-class Network(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    friend = models.ForeignKey(Friend, on_delete=models.CASCADE)

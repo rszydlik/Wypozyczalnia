@@ -14,7 +14,6 @@ class FriendForm(forms.ModelForm):
         model = Friend
         fields = ['name', 'email', 'phone', 'relates']
 
-
 class Login(forms.Form):
     login_form = forms.CharField(label='Login', max_length=64)
     password = forms.CharField(widget=forms.PasswordInput)

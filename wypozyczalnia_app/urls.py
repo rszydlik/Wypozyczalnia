@@ -1,6 +1,6 @@
 from django.urls import path, include
 from wypozyczalnia_app import views
-from wypozyczalnia_app.views import LogIn, LogOut, AddUser, ListUsers, AddBookView, BookListView, UserBookView, \
+from wypozyczalnia_app.views import AddUser, ListUsers, AddBookView, BookListView, UserBookView, \
     ChangePassword, FriendsList, FriendDetail, FriendCreate, FriendUpdate, FriendDelete, AllThingsView
 
 urlpatterns = [
@@ -12,13 +12,11 @@ urlpatterns = [
     path('delete/<int:bookid>', views.destroybook),
     # users
     path('accounts/', include('django.contrib.auth.urls')),
-    # path('login/', LogIn.as_view(), name='login'),
-    # path('logout/', LogOut.as_view(), name='logout'),
     path('add_user/', AddUser.as_view(), name='add-user'),
     path('list_users/', ListUsers.as_view(), name='list-users'),
     # path('changepassword/', ChangePassword.as_view(), name='change-password'),
     # user's library
-    path('show', UserBookView.as_view(), name='home'),
+    path('show', UserBookView.as_view(), name='show'),
     path('addtolibrary/<int:bookid>', views.addtouser),
     path('removefromlibrary/<int:bookid>', views.removefromuser),
     # friendlist

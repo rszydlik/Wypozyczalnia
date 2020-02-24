@@ -20,13 +20,18 @@ class AllThingsView(View):
         num_users = User.objects.all().count()
         num_libraries = Library.objects.all().count()
         num_friends = Friend.objects.all().count()
-
+        ip_address = request.META.get('HTTP_X_FORWARDED_FOR', '37.7.70.21')
+        print('http://api.ipstack.com/' + ip_address + '?access_key=' + geoapi + '&format=1')
+        response = requests.get('http://api.ipstack.com/' + ip_address + '?access_key=' + geoapi + '&format=1')
+        geodata = response.json()
         context = {
-            'num_books': num_books,
-            'num_users': num_users,
-            'num_libraries': num_libraries,
-            'num_friends': num_friends,
-        }
+                    'num_books': num_books,
+                    'num_users': num_users,
+                    'num_libraries': num_libraries,
+                    'num_friends': num_friends,
+                    'ip': geodata['ip'],
+                    'country': geodata['country_name']
+                    }
 
         return render(request, 'home.html', context=context)
 
@@ -61,46 +66,6 @@ def destroybook(request, bookid):
 
 
 # users
-
-class LogIn(View):
-
-    def get(self, request):
-        form = Login()
-        ip_address = request.META.get('HTTP_X_FORWARDED_FOR', '37.7.70.21')
-        print('http://api.ipstack.com/' + ip_address + '?access_key=' + geoapi + '&format=1')
-        response = requests.get('http://api.ipstack.com/' + ip_address + '?access_key=' + geoapi + '&format=1')
-        geodata = response.json()
-        return render(request,
-                      'registration/login.html',
-                      {'form': form,
-                       'ip': geodata['ip'],
-                       'country': geodata['country_name']
-                       })
-
-    def post(self, request):
-        form = Login(request.POST)
-        if form.is_valid():
-            login_form = form.cleaned_data['login_form']
-            password = form.cleaned_data['password']
-            user = authenticate(username=login_form, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect("home")
-            else:
-                form = Login()
-                return render(request, 'login.html', {'form': form})
-        else:
-            form = Login()
-            return render(request, 'login.html', {'form': form})
-
-
-class LogOut(View):
-
-    def get(self, request):
-        logout(request)
-        user = None
-        return redirect("home")
-
 
 class AddUser(FormView):
     template_name = 'add_user.html'
