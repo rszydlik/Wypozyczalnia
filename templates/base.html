@@ -29,7 +29,7 @@
     <br/>
     </div>
     <div class="row">
-        <div class="col-3">
+        <div class="col-2">
                 {% block sidebar %}
                 <ul class="sidebar-nav">
                 <li><a href="{% url 'home' %}">Home</a></li>
@@ -49,6 +49,8 @@
                 {% block content %}
                 {% endblock %}
             {% else %}
+                {% block home%}
+                {% endblock %}
                 Please <a href={% url 'login' %}>  Log in!</a> or <a href={% url 'add-user' %}>  Register!</a> for all the functionalities.
             {% endif %}
         </div>
