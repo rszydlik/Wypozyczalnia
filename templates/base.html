@@ -49,10 +49,10 @@
                 {% block content %}
                 {% endblock %}
             {% else %}
-                {% block home%}
-                {% endblock %}
                 Please <a href={% url 'login' %}>  Log in!</a> or <a href={% url 'add-user' %}>  Register!</a> for all the functionalities.
             {% endif %}
+            {% block home %}
+            {% endblock %}
         </div>
     </div>
 </container>
