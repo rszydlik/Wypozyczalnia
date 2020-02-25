@@ -20,7 +20,7 @@ class AllThingsView(View):
         num_users = User.objects.all().count()
         num_libraries = Library.objects.all().count()
         num_friends = Friend.objects.all().count()
-        ip_address = request.META.get('HTTP_X_FORWARDED_FOR', '37.7.70.21')
+        ip_address = request.META.get('HTTP_X_FORWARDED_FOR')
         print('http://api.ipstack.com/' + ip_address + '?access_key=' + geoapi + '&format=1')
         response = requests.get('http://api.ipstack.com/' + ip_address + '?access_key=' + geoapi + '&format=1')
         geodata = response.json()
