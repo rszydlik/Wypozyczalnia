@@ -21,7 +21,6 @@ class AllThingsView(View):
         num_libraries = Library.objects.all().count()
         num_friends = Friend.objects.all().count()
         ip_address = request.META.get('HTTP_X_FORWARDED_FOR', '37.7.70.21')
-        print('http://api.ipstack.com/' + ip_address + '?access_key=' + geoapi + '&format=1')
         response = requests.get('http://api.ipstack.com/' + ip_address + '?access_key=' + geoapi + '&format=1')
         geodata = response.json()
         context = {
@@ -50,19 +49,18 @@ class BookListView(ListView):
     template_name = 'show.html'
 
 
-def updatebook(request, bookid):
-    book = Book.objects.get(id=bookid)
-    form = BookForm(request.POST, instance=bookid)
-    if form.is_valid():
-        form.save()
-        return redirect("/show")
-    return render(request, 'edit.html', {'book': book})
-
+class BookUpdate(UpdateView):
+    model = Book
+    fields = ['btitle', 'bauthor', 'bdescription']
+    template_name = 'wypozyczalnia_app/friend_form.html'
+    pk_url_kwarg = 'pk'
+    context_object_name = 'form'
+    success_url = reverse_lazy('booklist')
 
 def destroybook(request, bookid):
     book = Book.objects.get(id=bookid)
     book.delete()
-    return redirect("/show")
+    return redirect("booklist")
 
 
 # users
@@ -154,12 +152,15 @@ class FriendsList(ListView):
 
 class FriendDetail(DetailView):
     model = Friend
+    fields = ['name', 'email', 'phone']
+    template_name = 'wypozyczalnia_app/friend_form.html'
+    pk_url_kwarg = 'pk'
 
 
 class FriendCreate(CreateView):
     model = Friend
     form_class = FriendForm
-    template_name = 'friendform.html'
+    template_name = 'wypozyczalnia_app/friend_form.html'
     success_url = reverse_lazy('friend-list')
 
     def form_valid(self, form):
@@ -170,7 +171,11 @@ class FriendCreate(CreateView):
 
 class FriendUpdate(UpdateView):
     model = Friend
-
+    fields = ['name', 'email', 'phone']
+    template_name = 'wypozyczalnia_app/friend_form.html'
+    pk_url_kwarg = 'pk'
+    context_object_name = 'form'
+    success_url = reverse_lazy('friend-list')
 
 class FriendDelete(DeleteView):
     model = Friend

@@ -1,14 +1,14 @@
 from django.urls import path, include
 from wypozyczalnia_app import views
 from wypozyczalnia_app.views import AddUser, ListUsers, AddBookView, BookListView, UserBookView, FriendsList, \
-    FriendDetail, FriendCreate, FriendUpdate, FriendDelete, AllThingsView, Lend
+    FriendDetail, FriendCreate, FriendUpdate, FriendDelete, AllThingsView, Lend, BookUpdate
 
 urlpatterns = [
     path('', AllThingsView.as_view(), name='home'),
     # books
     path('addbook', AddBookView.as_view(), name='addbook'),
     path('books', BookListView.as_view(), name='booklist'),
-    path('update/<int:bookid>', views.updatebook),
+    path('update/<int:pk>', BookUpdate.as_view()),
     path('delete/<int:bookid>', views.destroybook),
     # users
     path('accounts/', include('django.contrib.auth.urls')),
@@ -25,6 +25,6 @@ urlpatterns = [
     path('friends/list/', FriendsList.as_view(), name='friend-list'),
     path('friends/detail/<int:pk>', FriendDetail.as_view(), name='friend-detail'),
     path('friends/create/', FriendCreate.as_view(), name='friend-create'),
-    path('friends/update/<int:friendid>', FriendUpdate.as_view(), name='friend-update'),
-    path('friends/delete/<int:friendid>', FriendDelete.as_view(), name='friend-delete')
+    path('friends/update/<int:pk>', FriendUpdate.as_view(), name='friend-update'),
+    path('friends/delete/<int:pk>', FriendDelete.as_view(), name='friend-delete')
 ]

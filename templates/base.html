@@ -21,11 +21,11 @@
                 <p> Hello {{ user }}</p>
                 </div>
                 <div class="col-2 ml-auto">
-                <a href={% url 'logout' %}> Log out!</a>
+                <a href={% url 'logout' %} class="btn btn-info btn-sm" role="button"> Log out!</a>
                 </div>
             {% else %}
                 <div class="col-2 ml-auto">
-                <a href={% url 'login' %} class="btn btn-default btn-lg" role="button">  Log in!</a>
+                <a href={% url 'login' %} class="btn btn-info btn-sm" role="button">  Log in!</a>
                 </div>
             {% endif %}
         </div>
