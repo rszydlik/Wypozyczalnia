@@ -42,7 +42,7 @@ class AddBookView(CreateView):
     model = Book
     form_class = BookForm
     template_name = 'index.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('booklist')
 
 
 class BookListView(ListView):

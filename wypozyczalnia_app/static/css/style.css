@@ -1,8 +1,13 @@
 body {font:12px/1.4 Verdana,Arial; background:#eee; height:100%; margin:25px 25px 25px 25px; padding:0}
-h1 {font:24px Georgia,Verdana; margin:0}
-h2 {font-size:12px; font-weight:normal; font-style:italic; margin:0 0 20px}
-p {margin-top:0}
-ul {margin:0; padding-left:20px}
+h1 {font:24px; font-family: 'Akronim'; margin:0}
+h2 {font-family: 'Anton';font-size:12px; font-weight:normal; font-style:italic; margin:0 0 20px}
+p {font-family: 'Source Serif Pro';margin-top:0}
+ul {font-family: 'Abril Fatface';margin:0; padding-left:20px}
+
+/*font-family: 'Akronim', ;*/
+/*font-family: 'Anton', ;*/
+/*font-family: 'Source Serif Pro', ;*/
+/*font-family: 'Abril Fatface', ;*/
 
 #testdiv {width:600px; margin:0 auto; border:1px solid #ccc; padding:20px 25px; background:#fff}
 
@@ -14,6 +19,12 @@ ul {margin:0; padding-left:20px}
     border:10px solid #e3e3e3; z-index:2000}
 #tinymask {position:absolute; display:none; top:0; left:0; height:100%; width:100%; background:#000; z-index:1500}
 #tinycontent {background:#fff}
+
+.jumbotron{
+    background-color: #2E2D88;
+    color: white;
+}
+
 
 .button {
     font:14px Georgia,Verdana;

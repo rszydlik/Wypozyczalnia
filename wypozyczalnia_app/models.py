@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class Book(models.Model):
     btitle = models.CharField(max_length=20)
     bauthor = models.CharField(max_length=20)
-    bdescription = models.TextField(max_length=100)
+    bdescription = models.TextField(max_length=200)
     owners = models.ManyToManyField(User, through='Library')
 
     def __str__(self):
