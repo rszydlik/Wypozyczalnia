@@ -2,13 +2,13 @@
 {% block content %}
 <h1>Friends</h1>
 
-<table>
-<thead>
+<table class="table table-striped table-bordered table-sm">
+    <thead class="thead-dark">
 <tr>
-<th>Name</th>
-<th>Email</th>
-<th>Phone</th>
-<th>Actions</th>
+<th style="width: 20%">Name</th>
+<th style="width: 20%">Email</th>
+<th style="width: 20%">Phone</th>
+<th style="width: 10%">Actions</th>
 </tr>
 </thead>
 <tbody>
@@ -18,9 +18,11 @@
 <td>{{ contact.email }}</td>
 <td>{{ contact.phone }}</td>
 <td>
-<a  href="{% url "friend-detail"  contact.id  %}">details</a>
-<a  href="{% url "friend-update"  contact.id  %}">edit</a>
-<a  href="{% url "friend-delete"  contact.id  %}">delete</a>
+    <div class="btn-group btn-group-sm" role="group">
+        <button><a href="{% url "friend-detail" contact.id  %}">details</a></button>
+        <button><a href="{% url "friend-update" contact.id  %}">edit</a></button>
+        <button><a href="{% url "friend-delete"  contact.id  %}">delete</a></button>
+    </div>
 </td>
 </tr>
 
