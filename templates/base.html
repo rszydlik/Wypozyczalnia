@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width = device-width, initial-scale = 1">
-    <title>{% block title %}Wypożyczalnia{% endblock %}</title>
+    {% block title %}<title>Book Lender</title>{% endblock %}
     {% load static %}
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Akronim|Anton|Source+Serif+Pro&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -18,7 +18,7 @@
         <div class="row">
             {% if user.is_authenticated %}
                 <div class="col">
-                <p> Hello {{ user }}</p>
+                <h2> Hello {{ user }}</h2>
                 </div>
                 <div class="col-2 ml-auto">
                 <a href={% url 'logout' %} class="btn btn-info btn-sm" role="button"> Log out!</a>

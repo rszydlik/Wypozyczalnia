@@ -57,10 +57,10 @@ class BookUpdate(UpdateView):
     context_object_name = 'form'
     success_url = reverse_lazy('booklist')
 
-def destroybook(request, bookid):
-    book = Book.objects.get(id=bookid)
-    book.delete()
-    return redirect("booklist")
+
+class BookDelete(DeleteView):
+    model = Book
+    success_url = reverse_lazy('booklist')
 
 
 # users
@@ -137,7 +137,6 @@ def regain(request, libraryid):
     return redirect('show')
 
 
-
 # friends
 
 class FriendsList(ListView):
@@ -177,5 +176,7 @@ class FriendUpdate(UpdateView):
     context_object_name = 'form'
     success_url = reverse_lazy('friend-list')
 
+
 class FriendDelete(DeleteView):
     model = Friend
+    success_url = reverse_lazy('friend-list')

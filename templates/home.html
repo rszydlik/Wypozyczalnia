@@ -1,16 +1,17 @@
 {% extends "base.html" %}
 
 {% block home %}
-  <h1>Wypożyczalnia</h1>
-  <p>Witaj w Wypożyczalni, serwisie ułatwiającym kontrolowanie jaką książkę komu się pozyczyło!</p>
-  <h2>Obecna zawartość</h2>
-  <p>Wypożyczalnia liczy sobie obecnie:</p>
-  <ul>
-    <li><strong>Tytuły:</strong> {{ num_books }}</li>
-    <li><strong>Użytkownicy:</strong> {{ num_users }}</li>
-    <li><strong>Posiadane przez nich książki:</strong> {{ num_libraries }}</li>
-    <li><strong>Osoby którym pozyczają:</strong> {{ num_friends }}</li>
-  </ul>
-    <p>Twoje IP to {{ ip }} i łaczysz się prawdopodobnie z  {{ country }}</p>
+    <br>
+    <p>Welcome in  the Book Lender, web app that makes it easy to track who is holding your books at the moment!</p>
+    <br>
+    <p>Currently you can find here:</p>
+    <ul>
+        <li><strong>Titles:</strong> {{ num_books }}</li>
+        <li><strong>Users:</strong> {{ num_users }}</li>
+        <li><strong>Owned books:</strong> {{ num_libraries }}</li>
+        <li><strong>Friends who borrow them:</strong> {{ num_friends }}</li>
+    </ul>
+    <br>
+    <p>Your IP is {{ ip }} which means that you are probably connecting from {{ country }}</p>
 
 {% endblock %}

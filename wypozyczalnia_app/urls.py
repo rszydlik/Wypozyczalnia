@@ -1,7 +1,7 @@
 from django.urls import path, include
 from wypozyczalnia_app import views
 from wypozyczalnia_app.views import AddUser, ListUsers, AddBookView, BookListView, UserBookView, FriendsList, \
-    FriendDetail, FriendCreate, FriendUpdate, FriendDelete, AllThingsView, Lend, BookUpdate
+    FriendDetail, FriendCreate, FriendUpdate, FriendDelete, AllThingsView, Lend, BookUpdate, BookDelete
 
 urlpatterns = [
     path('', AllThingsView.as_view(), name='home'),
@@ -9,7 +9,7 @@ urlpatterns = [
     path('addbook', AddBookView.as_view(), name='addbook'),
     path('books', BookListView.as_view(), name='booklist'),
     path('update/<int:pk>', BookUpdate.as_view()),
-    path('delete/<int:bookid>', views.destroybook),
+    path('delete/<int:pk>', BookDelete.as_view()),
     # users
     path('accounts/', include('django.contrib.auth.urls')),
     path('add_user/', AddUser.as_view(), name='add-user'),

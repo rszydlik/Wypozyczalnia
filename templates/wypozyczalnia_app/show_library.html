@@ -17,8 +17,8 @@
         <td>{{ library.book.bauthor }}</td>
         <td>{{ library.book.bdescription }}</td>
         <td><div class="btn-group btn-group-sm" role="group">
-            <a class="btn btn-outline-dark btn-sm butt1" href="/catalog/lend/{{ library.id }}">Lend to a friend</a>
-            <a class="btn btn-outline-dark btn-sm butt1" href="/catalog/removefromlibrary/{{ library.book.id }}">Remove from library</a>
+            <a class="btn btn-outline-dark btn-sm butt1" href="/catalog/lend/{{ library.id }}">Lend</a>
+            <a class="btn btn-outline-dark btn-sm butt1" href="/catalog/removefromlibrary/{{ library.book.id }}">Remove</a>
         </div>
         </td>
     </tr>
@@ -47,8 +47,8 @@
         <td>{{ library.book.bdescription }}</td>
         <td>{{ library.borrower }}</td>
         <td><div class="btn-group btn-group-sm" role="group">
-            <button><a href="/catalog/regain/{{ library.id }}">Mark as returned</a></button>
-            <button><a href="/catalog/removefromlibrary/{{ library.book.id }}">Remove from library</a></button>
+            <a class="btn btn-outline-dark btn-sm butt1" href="/catalog/regain/{{ library.id }}">Returned</a>
+            <a class="btn btn-outline-dark btn-sm butt1" href="/catalog/removefromlibrary/{{ library.book.id }}">Lost</a>
         </div>
         </td>
     </tr>

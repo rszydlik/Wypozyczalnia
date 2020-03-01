@@ -17,10 +17,10 @@
         <td>{{ book.bauthor }}</td>
         <td>{{ book.bdescription }}</td>
         <td><div class="btn-group btn-group-sm" role="group">
-            <button><a href="/catalog/update/{{ book.id }}">Edit</a></button>
-            <button><a href="/catalog/delete/{{ book.id }}">Delete</a></button>
-            <button><a href="/catalog/addtolibrary/{{ book.id }}">Save to library</a></button>
-        </div>
+            <a class="btn btn-outline-dark btn-sm butt1" href="/catalog/addtolibrary/{{ book.id }}">Own</a>
+            <a class="btn btn-outline-dark btn-sm butt1" href="/catalog/update/{{ book.id }}">Edit</a>
+            <a class="btn btn-outline-dark btn-sm butt1" href="/catalog/delete/{{ book.id }}">Delete</a></>
+                    </div>
         </td>
     </tr>
 {% endfor %}
