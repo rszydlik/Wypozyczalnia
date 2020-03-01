@@ -38,7 +38,7 @@
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-1">
+        <div class="col-lg-1 col-md-1 col-sm-2 col-xs-12">
                 {% block sidebar %}
                 <ul class="sidebar-nav">
                 <li><a href="{% url 'home' %}">Home</a></li>
@@ -51,7 +51,7 @@
                 </ul>
                 {% endblock %}
         </div>
-        <div class="col-11">
+        <div class="col-lg-11 col-md-11 col-sm-10 col-xs-12">
             {% block accounts %}
             {% endblock %}
             {% if user.is_authenticated %}
